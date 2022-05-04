@@ -38,6 +38,10 @@
  *
  */
 
+// add function to config channel and timer into one config function
+// one function to manipulate duty cycle
+// shutdown all and shutdown a single channel functions
+
 void init_ledc_timer_config(){
     /*
      * Prepare and set configuration of timers
