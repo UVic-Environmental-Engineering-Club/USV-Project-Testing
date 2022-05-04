@@ -1,3 +1,8 @@
 
 *.json
 *.esp32dev
+PWM-Testing/.vscode/c_cpp_properties.json
+PWM-Testing/.vscode/extensions.json
+PWM-Testing/.vscode/launch.json
+PWM-Testing/.vscode/settings.json
+PWM-Testing/sdkconfig.esp32dev
