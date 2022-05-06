@@ -42,31 +42,41 @@
 // one function to manipulate duty cycle
 // shutdown all and shutdown a single channel functions
 
-void init_ledc_timer_config(){
+void PWM_config_init(ledc_timer_bit_t timer_resolution, int frequency, int timer_source, ledc_mode_t speed_mode, int gpio_number, int channel){
     /*
      * Prepare and set configuration of timers
      * that will be used by LED Controller
      */
     ledc_timer_config_t ledc_timer = {
-        .duty_resolution = LEDC_TIMER_8_BIT, // resolution of PWM duty
-        .freq_hz = 5000,                      // frequency of PWM signal
-        .speed_mode = LEDC_HIGH_SPEED_MODE,           // timer mode
-        .timer_num = 0,            // timer index
+        .duty_resolution = timer_resolution, // resolution of PWM duty
+        .freq_hz = frequency,                      // frequency of PWM signal
+        .speed_mode = speed_mode,           // timer mode
+        .timer_num = timer_source,            // selects the timer source of channel (0 - 3)
         .clk_cfg = LEDC_AUTO_CLK,              // Auto select the source clock
     };
-    ledc_timer_config(&ledc_timer);
-}
 
-void init_ledc_channel_config(int duty_cycle){
     /*
      * Prepare and set configuration of channel
      * that will be used by LED Controller
      */
     ledc_channel_config_t ledc_channel = {
+        .speed_mode = speed_mode,     //LEDC speed mode HIGH or LOW
+        .channel = channel,       // LEDC channel (0 - 7)
+        .gpio_num = gpio_number,     // LEDC output gpio number
+        .timer_sel = timer_source,     // selects the timer source of channel (0 - 3)
+        .duty = 0       // [0, (2**duty_resolution)]
+    };
+
+    ledc_timer_config(&ledc_timer);
+    ledc_channel_config(&ledc_channel);
+}
+
+void PWM_duty_cycle_update(int channel, int gpio_num, int duty_cycle){
+
+    ledc_channel_config_t ledc_channel = {
         .speed_mode = LEDC_HIGH_SPEED_MODE,     //LEDC speed mode HIGH or LOW
-        .channel = 0,       // LEDC channel (0 - 7)
-        .gpio_num = 18,     // LEDC output gpio number
-        .timer_sel = 0,     // selects the timer source of channel (0 - 3)
+        .channel = channel,       // LEDC channel (0 - 7)
+        .gpio_num = gpio_num,     // LEDC output gpio number
         .duty = duty_cycle       // [0, (2**duty_resolution)]
     };
     ledc_channel_config(&ledc_channel);
@@ -74,14 +84,10 @@ void init_ledc_channel_config(int duty_cycle){
 
 void app_main(void)
 {
-    init_ledc_timer_config();
-    init_ledc_channel_config(127);
+
 
     vTaskDelay (5000 / portTICK_RATE_MS);
-    //ledc_set_duty(LEDC_HIGH_SPEED_MODE, 0, 255);
-    init_ledc_channel_config(0);
+
     vTaskDelay (5000 / portTICK_RATE_MS);
-    init_ledc_channel_config(255);
-    //ledc_set_duty(LEDC_HIGH_SPEED_MODE, 0, 0);
 
 }
