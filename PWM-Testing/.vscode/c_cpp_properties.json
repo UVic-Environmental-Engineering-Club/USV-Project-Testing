@@ -8,10 +8,10 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "c:/Github/USV-Project-Testing/PWM-Testing/include",
-                "c:/Github/USV-Project-Testing/PWM-Testing/src",
+                "c:/USV-Project-Testing/PWM-Testing/include",
+                "c:/USV-Project-Testing/PWM-Testing/src",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_pm/include",
-                "C:/Github/USV-Project-Testing/PWM-Testing/.pio/build/esp32dev/config",
+                "C:/USV-Project-Testing/PWM-Testing/.pio/build/esp32dev/config",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/newlib/platform_include",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/freertos/include",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/freertos/port/xtensa/include",
@@ -31,7 +31,6 @@
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/hal/include",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_rom/include",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_rom/esp32",
-                "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_rom/include/esp32",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_common/include",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_system/include",
                 "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp32/include",
@@ -121,10 +120,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "c:/Github/USV-Project-Testing/PWM-Testing/include",
-                    "c:/Github/USV-Project-Testing/PWM-Testing/src",
+                    "c:/USV-Project-Testing/PWM-Testing/include",
+                    "c:/USV-Project-Testing/PWM-Testing/src",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_pm/include",
-                    "C:/Github/USV-Project-Testing/PWM-Testing/.pio/build/esp32dev/config",
+                    "C:/USV-Project-Testing/PWM-Testing/.pio/build/esp32dev/config",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/newlib/platform_include",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/freertos/include",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/freertos/port/xtensa/include",
@@ -144,7 +143,6 @@
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/hal/include",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_rom/include",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_rom/esp32",
-                    "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_rom/include/esp32",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_common/include",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp_system/include",
                     "C:/Users/migoy/.platformio/packages/framework-espidf/components/esp32/include",
@@ -234,7 +232,7 @@
             },
             "defines": [
                 "_GNU_SOURCE",
-                "IDF_VER=\"4.3.1\"",
+                "IDF_VER=\"4.3.0\"",
                 "ESP_PLATFORM",
                 "PLATFORMIO=50205",
                 "ARDUINO_ESP32_DEV",
@@ -242,7 +240,7 @@
             ],
             "cStandard": "c99",
             "cppStandard": "c++11",
-            "compilerPath": "C:/Users/migoy/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-gcc.exe",
+            "compilerPath": "C:/Users/migoy/.platformio/packages/toolchain-xtensa32/bin/xtensa-esp32-elf-gcc.exe",
             "compilerArgs": [
                 "-mlongcalls",
                 ""
