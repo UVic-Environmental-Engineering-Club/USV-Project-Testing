@@ -38,9 +38,13 @@
  *
  */
 
-// add function to config channel and timer into one config function
-// one function to manipulate duty cycle
-// shutdown all and shutdown a single channel functions
+/**********************************************************************************************************************************************
+* This function sets up a GPIO pin to output a specific frequency with a duty cycle of 0
+* timer resolution is the bit resolution of the PWM duty cycle
+* timer source is the source of the channel (0 - 3)
+* speed mode is either LEDC_HIGH_SPEED_MODE or LEDC_LOW_SPEED_MODE
+* channel is the LEDC channel to use (0 - 7)
+**********************************************************************************************************************************************/
 
 void PWM_config_init(ledc_timer_bit_t timer_resolution, int frequency, int timer_source, ledc_mode_t speed_mode, int gpio_number, int channel){
     /*
@@ -52,7 +56,7 @@ void PWM_config_init(ledc_timer_bit_t timer_resolution, int frequency, int timer
         .freq_hz = frequency,                      // frequency of PWM signal
         .speed_mode = speed_mode,           // timer mode
         .timer_num = timer_source,            // selects the timer source of channel (0 - 3)
-        .clk_cfg = LEDC_AUTO_CLK,              // Auto select the source clock
+        .clk_cfg = LEDC_AUTO_CLK,              // Auto selects the source clock
     };
 
     /*
@@ -71,10 +75,16 @@ void PWM_config_init(ledc_timer_bit_t timer_resolution, int frequency, int timer
     ledc_channel_config(&ledc_channel);
 }
 
-void PWM_duty_cycle_update(int channel, int gpio_num, int duty_cycle){
+/**********************************************************************************************************************************************
+* This function updates the duty cycle of the PWM pin attached to the specific LEDC channel and GPIO
+**********************************************************************************************************************************************/
 
+void PWM_duty_cycle_update(int channel, int gpio_num, int duty_cycle){
+    /*
+     * Prepare and set configuration of channel
+     * that will be used by LED Controller
+     */
     ledc_channel_config_t ledc_channel = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,     //LEDC speed mode HIGH or LOW
         .channel = channel,       // LEDC channel (0 - 7)
         .gpio_num = gpio_num,     // LEDC output gpio number
         .duty = duty_cycle       // [0, (2**duty_resolution)]
@@ -82,12 +92,45 @@ void PWM_duty_cycle_update(int channel, int gpio_num, int duty_cycle){
     ledc_channel_config(&ledc_channel);
 }
 
+/**********************************************************************************************************************************************
+* This function shuts down the duty cycle of the PWM pin attached to the specific LEDC channel and GPIO
+**********************************************************************************************************************************************/
+
+void PWM_duty_cycle_reset(int channel, int gpio_num){
+    /*
+     * Prepare and set configuration of channel
+     * that will be used by LED Controller
+     */
+    ledc_channel_config_t ledc_channel = {
+        .channel = channel,       // LEDC channel (0 - 7)
+        .gpio_num = gpio_num,     // LEDC output gpio number
+        .duty = 0       // [0, (2**duty_resolution)]
+    };
+    ledc_channel_config(&ledc_channel);
+}
+
+/**********************************************************************************************************************************************
+* This function shuts down the duty cycle of all LEDC channels which theoretically shuts down all GPIOs PWMs
+**********************************************************************************************************************************************/
+
+void PWM_shutdown(){
+    for (size_t i = 0; i < 8; i++)
+    {
+        ledc_channel_config_t ledc_channel = {
+        .channel = i,       // LEDC channel (0 - 7)
+        .duty = 0       // [0, (2**duty_resolution)]
+        };
+        ledc_channel_config(&ledc_channel);
+    }  
+}
 void app_main(void)
 {
-
-
-    vTaskDelay (5000 / portTICK_RATE_MS);
-
-    vTaskDelay (5000 / portTICK_RATE_MS);
-
+    PWM_config_init(LEDC_TIMER_8_BIT, 50, 0, LEDC_HIGH_SPEED_MODE, 14, 0);
+    PWM_duty_cycle_update(0, 14, 50);
+    PWM_config_init(LEDC_TIMER_8_BIT, 50, 0, LEDC_HIGH_SPEED_MODE, 13, 2);
+    PWM_duty_cycle_update(2, 13, 50);
+    PWM_config_init(LEDC_TIMER_8_BIT, 50, 1, LEDC_HIGH_SPEED_MODE, 12, 1);
+    PWM_duty_cycle_update(1, 12, 50);
+    vTaskDelay (20000 / portTICK_RATE_MS);
+    PWM_shutdown();
 }
