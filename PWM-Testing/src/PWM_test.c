@@ -2,13 +2,7 @@
 PWM Test Code to abstract PWM usage throughout the USV using the ESP32's LEDC driver.
 Written by Miguel Manguerra.
 */
-#pragma once
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "driver/ledc.h"
-#include "esp_err.h"
+#include "main.h"
 
 void app_main(void)
 {
