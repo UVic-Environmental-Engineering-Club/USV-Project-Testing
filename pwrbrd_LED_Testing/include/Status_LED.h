@@ -4,7 +4,7 @@
 
 #define NUM_LEDS                3       //Number of LEDs in the WS2812 strip
 #define LED_RMT_TX_CHANNEL		0       //RMT Channel that will be used to modulate the signal
-#define LED_RMT_TX_GPIO			5       //GPIO number where the WS2812 strip is connected
+#define LED_RMT_TX_GPIO			27       //GPIO number where the WS2812 strip is connected
 #define T0H                     14      //0 bit high time. Time interval the signal should be high for when a 0 bit is transmitted
 #define T1H                     52      //1 bit high time. Time interval the signal should be high when a 1 bit is transmitted
 #define TL                      52      //low time for either bit. Time interval the signal should be low followed by the high time for either bit
